@@ -25,22 +25,19 @@ function App() {
 
     const dispatch = useAppDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(initializeAppTC())
-    },[])
+    }, [])
 
-    const logOutHandler = useCallback(()=> {
+    const logOutHandler = useCallback(() => {
         dispatch(logoutTC())
-    },[])
-
+    }, [])
 
     console.log(initialized)
-    if(!initialized) {
-        return <div style={{position:'fixed', top:'30%', width:'100%', textAlign:'center'}}> <CircularProgress  /></div>
+    if (!initialized) {
+        return <div style={{position: 'fixed', top: '30%', width: '100%', textAlign: 'center'}}><CircularProgress/>
+        </div>
     }
-
-
-
 
     return (
         <div className="App">
@@ -53,17 +50,18 @@ function App() {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button onClick={logOutHandler} color="inherit">Logout</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
-
             <Container fixed>
                 <Routes>
-                    <Route path={'/'} element={  <TodolistsList/>}/>
-                    <Route path={'/login'} element={  <Login/>}/>
-                    <Route path={'/404'} element={  <div style={{textAlign:'center',display:'flex',alignItems: 'center',justifyContent:'center'}}><h1>404 NOT FOUND</h1></div>}/>
-                    <Route path={'*'} element={ <Navigate to={'/404'}/> }/>
+                    <Route path={'/'} element={<TodolistsList/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/404'} element={<div
+                        style={{textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <h1>404 NOT FOUND</h1></div>}/>
+                    <Route path={'*'} element={<Navigate to={'/404'}/>}/>
                 </Routes>
             </Container>
         </div>

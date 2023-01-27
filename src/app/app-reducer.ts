@@ -5,7 +5,7 @@ import {setIsLoggedInAC} from "../components/Login/login-reducer";
 const initialState: InitialStateType = {
     status: 'idle',
     error: null,
-    initialized:false
+    initialized: false
 }
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -15,7 +15,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
         case 'APP/SET-ERROR':
             return {...state, error: action.error}
         case 'SET-APP-INITIALIZED' :
-            return {...state,initialized:action.value}
+            return {...state, initialized: action.value}
         default:
             return {...state}
     }
@@ -27,7 +27,7 @@ export type InitialStateType = {
     status: RequestStatusType
     // если ошибка какая-то глобальная произойдёт - мы запишем текст ошибки сюда
     error: string | null
-    initialized:boolean
+    initialized: boolean
 }
 export const setAppInitializedAC = (value: boolean) => ({type: 'SET-APP-INITIALIZED', value} as const)
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
