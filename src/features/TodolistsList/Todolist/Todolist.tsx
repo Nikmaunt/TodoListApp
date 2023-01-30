@@ -65,13 +65,14 @@ export const Todolist = React.memo(function ({...props}: PropsType) {
         <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
         <div>
             {
-                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}
+                tasksForTodolist?.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}
                                                 removeTask={props.removeTask}
                                                 changeTaskTitle={props.changeTaskTitle}
                                                 changeTaskStatus={props.changeTaskStatus}
                 />)
             }
         </div>
+
         <div style={{paddingTop: '10px'}}>
             <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}

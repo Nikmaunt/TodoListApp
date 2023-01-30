@@ -24,9 +24,8 @@ export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
-
     useEffect(() => {
-        if(!isLoggedIn) return
+        if (!isLoggedIn) return
         const thunk = fetchTodolistsTC()
         dispatch(thunk)
     }, [])
@@ -52,7 +51,7 @@ export const TodolistsList: React.FC = () => {
     }, [])
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
-        const action = changeTodolistFilterAC(todolistId, value)
+        const action = changeTodolistFilterAC({id: todolistId, filter: value})
         dispatch(action)
     }, [])
 
@@ -71,7 +70,7 @@ export const TodolistsList: React.FC = () => {
         dispatch(thunk)
     }, [dispatch])
 
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
     return <>
@@ -93,8 +92,7 @@ export const TodolistsList: React.FC = () => {
                                 addTask={addTask}
                                 changeTaskStatus={changeStatus}
                                 removeTodolist={removeTodolist}
-                                changeTaskTitle={changeTaskTitle}
-                                changeTodolistTitle={changeTodolistTitle}
+                                changeTaskTitle={changeTaskTitle} changeTodolistTitle={changeTodolistTitle}
                             />
                         </Paper>
                     </Grid>

@@ -19,7 +19,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import {logoutTC} from "../components/Login/login-reducer";
 
 function App() {
-    const status = useAppSelector<RequestStatusType>((state) => state.app.status)
+    const status = useAppSelector<RequestStatusType| string>((state) => state.app.status)
     const initialized = useAppSelector<boolean>((state) => state.app.initialized)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn);
 
