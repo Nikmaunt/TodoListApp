@@ -11,7 +11,7 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         removeTodolistAC(state, action: PayloadAction<{ id: string }>) {
-            state.filter(tl => tl.id !== action.payload.id)
+          return   state.filter(tl => tl.id !== action.payload.id)
         },
         addTodolistAC(state, action: PayloadAction<{ todolist: TodolistType }>) {
             state.unshift({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
@@ -29,11 +29,11 @@ const slice = createSlice({
             return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
         }
     },
-    extraReducers: builder => {
-        builder.addCase(removeTodolistTC.fulfilled, (state, action) => {
-            return state.filter(tl => tl.id !== action.payload)
-        });
-    }
+    // extraReducers: builder => {
+    //     builder.addCase(removeTodolistTC.fulfilled, (state, action) => {
+    //         return state.filter(tl => tl.id !== action.payload)
+    //     });
+    // }
 })
 
 export const todolistsReducer = slice.reducer
@@ -71,7 +71,7 @@ export const removeTodolistTC = createAsyncThunk('todolists/removeTodolist', asy
             //скажем глобально приложению, что асинхронная операция завершена
             dispatch(setAppStatusAC({status: 'succeeded'}))
         })
-    return todolistId
+
 })
 export const addTodolistTC = (title: string) => {
     return (dispatch: Dispatch) => {
