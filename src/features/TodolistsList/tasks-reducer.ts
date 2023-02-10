@@ -31,6 +31,7 @@ const slice = createSlice({
         updateTaskAC(state, action: PayloadAction<{ taskId: string, model: UpdateDomainTaskModelType, todolistId: string }>) {
             state[action.payload.todolistId] = state[action.payload.todolistId]
                 .map(t => t.id === action.payload.taskId ? {...t, ...action.payload.model} : t)
+
         },
         setTasksAC(state, action: PayloadAction<{ tasks: Array<TaskType>, todolistId: string }>) {
             state[action.payload.todolistId] = action.payload.tasks
