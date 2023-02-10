@@ -15,7 +15,7 @@ import {Navigate} from "react-router-dom";
 export const Login = () => {
    const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
-  type FormikErrorType = {
+    type FormikErrorType = {
         email?: string
         password?: string
         rememberMe?: boolean
