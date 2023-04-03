@@ -1,15 +1,19 @@
 import {Dispatch} from 'redux'
 import {setAppStatusAC} from '../../app/app-reducer'
-import {authAPI, FieldErrorType, LoginType} from "../../api/todolists-api";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {authAPI} from "../../api/todolists-api";
+import {
+    handleAsyncServerAppError,
+    handleAsyncServerNetworkError,
+} from "../../utils/error-utils";
 import {
     createAsyncThunk,
     createSlice,
     PayloadAction
 } from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
+import {LoginParamsType} from "../../api/types";
 
-export const loginTC = createAsyncThunk<{isLoggedIn:boolean},LoginType,{rejectValue:{error:Array<string>, fieldErrors?:Array<FieldErrorType>}}>('auth/login', async (param, thunkAPI) => {
+export const loginTC = createAsyncThunk<{isLoggedIn:boolean}, LoginParamsType,{rejectValue:{error:Array<string>, fieldErrors?:Array<any>}}>('auth/login', async (param, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await authAPI.login(param)
@@ -17,12 +21,14 @@ export const loginTC = createAsyncThunk<{isLoggedIn:boolean},LoginType,{rejectVa
             thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
             return {isLoggedIn: true}
         } else {
-            handleServerAppError(res.data, thunkAPI.dispatch);
+            // @ts-ignore
+            handleAsyncServerAppError(res.data, thunkAPI.dispatch);
             return thunkAPI.rejectWithValue( {error: res.data.messages, fieldErrors:res.data.fieldsErrors})
         }
     } catch (err) {
         const error = err as AxiosError
-        handleServerNetworkError(error, thunkAPI.dispatch);
+        // @ts-ignore
+        handleAsyncServerNetworkError(error, thunkAPI.dispatch);
         return thunkAPI.rejectWithValue( {error:[error.message], fieldErrors:undefined})
     }
 })
@@ -58,11 +64,13 @@ export const logoutTC = () => (dispatch: Dispatch) => {
                 dispatch(setIsLoggedInAC({value: false}))
                 dispatch(setAppStatusAC({status: "succeeded"}))
             } else {
-                handleServerAppError(res.data, dispatch);
+                // @ts-ignore
+                handleAsyncServerAppError(res.data, dispatch);
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error, dispatch);
+            // @ts-ignore
+            handleAsyncServerNetworkError(error, dispatch);
         })
 }
 
