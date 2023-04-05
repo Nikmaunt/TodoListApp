@@ -1,5 +1,5 @@
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux'
-import {AppDispatchType, RootReducerType} from './types'
+import {AppDispatchType} from './types'
 import {ActionCreatorsMapObject, bindActionCreators} from 'redux'
 import {useMemo} from 'react'
 
