@@ -46,12 +46,12 @@ function App() {
     return (
             <div className="App">
                 <ErrorSnackbar/>
-                <AppBar position="static">
-                    <Toolbar style={{display:"flex"}}>
+                <AppBar  position="static">
+                    <Toolbar style={{display:"flex", justifyContent:"space-between"}} >
                         <Typography variant="h6">
                             Todolist
                         </Typography>
-                        <div style={{justifyContent:"flex-end"}}>
+                        <div >
                             {isLoggedIn && <Button style={{marginTop:2.5}} color="inherit" onClick={logoutHandler}>Log out</Button>}
                         </div>
                     </Toolbar>
