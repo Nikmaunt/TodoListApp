@@ -47,13 +47,13 @@ function App() {
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" aria-label="menu">
-                        </IconButton>
+                    <Toolbar style={{display:"flex"}}>
                         <Typography variant="h6">
                             Todolist
                         </Typography>
-                        {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
+                        <div style={{justifyContent:"flex-end"}}>
+                            {isLoggedIn && <Button style={{marginTop:2.5}} color="inherit" onClick={logoutHandler}>Log out</Button>}
+                        </div>
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                 </AppBar>
